@@ -24,6 +24,11 @@ def index():
 
     return render_template('index_filmes.html')
 
+@filme_route.route('/IA')
+def Ia():
+
+    return render_template('IA.html')
+
 #rota para listar os filmes
 @filme_route.route('/listar', methods=['GET','POST','PUT','DELETE'])
 def listar_filmes():
