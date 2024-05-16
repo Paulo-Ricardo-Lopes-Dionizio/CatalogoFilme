@@ -1,3 +1,3 @@
 from peewee import SqliteDatabase
 
-db = SqliteDatabase('filmes.db')
+db = SqliteDatabase('CatalogoDeFilmes.db')

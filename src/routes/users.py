@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from database.Models.users import Users
 
 user_route = Blueprint('user', __name__)
 
@@ -16,37 +17,61 @@ user_route = Blueprint('user', __name__)
 
 """
 
-user_route.route('/')
+@user_route.route('/')
 def list_users():
- 
-    pass
+    users = Users.select()
 
-user_route.route('/', methods=['POST'])
+    return render_template('users/list.html', users=users)
+
+
+@user_route.route('/', methods=['POST'])
 def insert_users():
- 
-    pass
 
-user_route.route('/new')
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+    new_user = Users.create(user_name=name, user_email=email, user_password=password)
+
+    return redirect(url_for('user.list_users'))
+
+
+@user_route.route('/new')
 def form_new_users():
  
-    pass
+    return render_template('users/new.html')
 
-user_route.route('/<int:user_id>')
-def show_user():
- 
-    pass
 
-user_route.route('/<int: user_id>/edit')
-def form_edit_users():
- 
-    pass
+@user_route.route('/<int:user_id>')
+def show_user(user_id):
 
-user_route.route('/<int: user_id>/update', methods=['PUT'])
-def update_user():
- 
-    pass
+    user = Users.get_by_id(user_id)
 
-user_route.route('/<int: user_id>/delete', methods=['DELETE'])
-def delete_user():
- 
-    pass
+    return render_template('users/show.html', user=user)
+
+
+@user_route.route('/<int:user_id>/edit')
+def form_edit_users(user_id):
+
+    user = Users.get_by_id(user_id)
+
+    return render_template('users/edit.html', user=user)
+
+
+@user_route.route('/<int:user_id>/update', methods=['PUT'])
+def update_user(user_id):
+
+    user = Users.get_by_id(user_id)
+    user.user_name = request.form['name']
+    user.user_email = request.form['email']
+    user.user_password = request.form['password']
+    user.save()
+
+    return redirect(url_for('user.show_user', user_id=user_id))
+
+
+@user_route.route('/<int:user_id>/delete', methods=['DELETE'])
+def delete_user(user_id):
+
+    user = Users.get_by_id(user_id)
+    user.delete_instance()
+    return redirect(url_for('user.list_users'))
