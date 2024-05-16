@@ -50,7 +50,7 @@ def show_user(user_id):
 
 
 @user_route.route('/<int:user_id>/edit')
-def form_edit_users(user_id):
+def form_edit_user(user_id):
 
     user = Users.get_by_id(user_id)
 
