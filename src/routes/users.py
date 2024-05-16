@@ -69,7 +69,7 @@ def update_user(user_id):
     return redirect(url_for('user.show_user', user_id=user_id))
 
 
-@user_route.route('/<int:user_id>/delete', methods=['DELETE'])
+@user_route.route('/<int:user_id>/delete', methods=['POST','DELETE'])
 def delete_user(user_id):
 
     user = Users.get_by_id(user_id)
