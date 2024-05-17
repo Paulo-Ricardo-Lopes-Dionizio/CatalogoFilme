@@ -2,11 +2,12 @@ from flask import Blueprint, render_template, redirect
 from dataclasses import dataclass
 import requests
 from oauthlib.oauth2 import WebApplicationClient
+import URI
 
 login_route = Blueprint('login',__name__)
 
-GOOGLE_CLIENT_ID = '558581219178-7tf10c1hgnu8777782i6u7q8tamrjd1a.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_CLIENT_ID = URI.URI_GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET = URI.URI_GOOGLE_CLIENT_SECRET
 
 oauth = WebApplicationClient(client_id=GOOGLE_CLIENT_ID)
 
