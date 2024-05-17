@@ -1,61 +1,43 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_oauthlib.client import OAuth
+from flask import Blueprint, render_template, redirect
+from dataclasses import dataclass
+import requests
+from oauthlib.oauth2 import WebApplicationClient
 
-app = Flask(__name__)
+login_route = Blueprint('login',__name__)
 
-# Google OAuth settings
-GOOGLE_CLIENT_ID = 'your_client_id_here'
-GOOGLE_CLIENT_SECRET = 'your_client_secret_here'
-GOOGLE_AUTH_URL = 'https://accounts.google.com/o/oauth2/auth'
-GOOGLE_TOKEN_URL = 'https://accounts.google.com/o/oauth2/token'
+GOOGLE_CLIENT_ID = '558581219178-7tf10c1hgnu8777782i6u7q8tamrjd1a.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = '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'
 
-oauth = OAuth(app)
-google = oauth.remote_app(
-    'google',
-    consumer_key=GOOGLE_CLIENT_ID,
-    consumer_secret=GOOGLE_CLIENT_SECRET,
-    request_token_params={
-        'scope': 'email profile'
-    },
-    base_url=GOOGLE_AUTH_URL,
-    request_token_url=None,
-    access_token_url=GOOGLE_TOKEN_URL,
-    access_token_method='POST'
-)
+oauth = WebApplicationClient(client_id=GOOGLE_CLIENT_ID)
 
-@app.route('/')
-def index():
-    return render_template('login.html')
+@dataclass
+class GoogleHosts:
+    authorization_endpoint: str
+    token_endpoint: str
+    userinfo_endpoint: str
+    certs: str
 
-@app.route('/login', methods=['POST'])
+def get_google_oauth_hosts() -> GoogleHosts:
+    hosts = requests.get('https://accounts.google.com/.well-known/openid-configuration')
+    if hosts.status_code != 200:
+        raise Exception('Não foi possível recuperar os endpoints de autenticação!')
+    
+    data = hosts.json()
+    return GoogleHosts(authorization_endpoint=data.get('authorization_endpoint'), 
+                       token_endpoint=data.get('token_endpoint'),
+                       userinfo_endpoint=data.get('userinfo_endpoint'),
+                       certs=data.get('jwks_uri'))
+
+@login_route.route('/')
 def login():
-    email = request.form['email']
-    password = request.form['password']
-    # Validate email and password here
-    # ...
-    return redirect(url_for('index'))
+    return render_template('login/login.html')
 
-@app.route('/create_user', methods=['POST'])
-def create_user():
-    email = request.form['email']
-    password = request.form['password']
-    # Create a new user here
-    # ...
-    return redirect(url_for('index'))
+@login_route.route('/auth')
+def google_auth():
+    hosts = get_google_oauth_hosts()
 
-@app.route('/login_with_google')
-def login_with_google():
-    return google.authorize(callback=url_for('authorized', _external=True))
+    redirect_uri = oauth.prepare_authorization_request(authorization_url=hosts.authorization_endpoint,
+                                                       redirect_url='https://localhost:5000/filmes/',
+                                                       scope=['openid', 'email', 'profile'])
 
-@app.route('/authorized')
-def authorized():
-    resp = google.authorized_response()
-    if resp is None:
-        return 'Access denied'
-    session['google_token'] = (resp['access_token'], '')
-    # Get user info from Google here
-    # ...
-    return redirect(url_for('index'))
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    return redirect(location=redirect_uri[0])

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,14 +6,14 @@
   </head>
   <body>
     <h1>Login</h1>
-    <form action="{{ url_for('login') }}" method="post">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email"><br><br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password"><br><br>
-      <input type="submit" value="Login">
-    </form>
-    <p>Don't have an account? <a href="{{ url_for('create_user') }}">Create one</a></p>
-    <p>Or log in with Google: <a href="{{ url_for('login_with_google') }}">Google</a></p>
+    <form action="#" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Login">
+        <p>Don't have an account? <a href="#">Create one</a></p>
+        <p>Or log in with Google: <a href="{{ url_for('login.google_auth') }}">Google</a></p>
+      </form>
   </body>
 </html>
