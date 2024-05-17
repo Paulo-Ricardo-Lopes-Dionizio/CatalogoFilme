@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import requests
 from oauthlib.oauth2 import WebApplicationClient
 import URI
+import URI
 
 login_route = Blueprint('login',__name__)
 
