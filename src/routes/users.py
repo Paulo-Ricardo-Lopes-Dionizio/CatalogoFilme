@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from database.Models.users import Users
+from werkzeug.security import generate_password_hash
 
 user_route = Blueprint('user', __name__)
 
@@ -29,7 +30,7 @@ def insert_users():
 
     name = request.form['name']
     email = request.form['email']
-    password = request.form['password']
+    password = generate_password_hash(request.form['password'])
     new_user = Users.create(user_name=name, user_email=email, user_password=password)
 
     return redirect(url_for('user.list_users'))
