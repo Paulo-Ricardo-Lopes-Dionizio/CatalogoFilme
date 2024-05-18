@@ -3,7 +3,6 @@ from dataclasses import dataclass
 import requests
 from oauthlib.oauth2 import WebApplicationClient
 import URI
-import URI
 
 login_route = Blueprint('login',__name__)
 
@@ -32,33 +31,14 @@ def get_google_oauth_hosts() -> GoogleHosts:
 
 @login_route.route('/')
 def login():
-    email = request.form['email']
-    password = request.form['password']
-    # Validate email and password here
-    # ...
-    return redirect(url_for('index'))
+    return render_template('login/login.html')
 
-@app.route('/create_user', methods=['POST'])
-def create_user():
-    email = request.form['email']
-    password = request.form['password']
-    # Create a new user here
-    # ...
-    return redirect(url_for('index'))
+@login_route.route('/auth')
+def google_auth():
+    hosts = get_google_oauth_hosts()
 
-@app.route('/login_with_google')
-def login_with_google():
-    return google.authorize(callback=url_for('authorized', _external=True))
+    redirect_uri = oauth.prepare_authorization_request(authorization_url=hosts.authorization_endpoint,
+                                                       redirect_url='https://localhost:5000/filmes/',
+                                                       scope=['openid', 'email', 'profile'])
 
-@app.route('/authorized')
-def authorized():
-    resp = google.authorized_response()
-    if resp is None:
-        return 'Access denied'
-    session['google_token'] = (resp['access_token'], '')
-    # Get user info from Google here
-    # ...
-    return redirect(url_for('index'))
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    return redirect(location=redirect_uri[0])
