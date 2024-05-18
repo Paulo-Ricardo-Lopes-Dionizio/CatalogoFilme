@@ -1,10 +1,24 @@
 from flask import Blueprint, render_template, redirect
-from dataclasses import dataclass
+from database.Models.users import Users
+from werkzeug.security import check_password_hash
+
 # import requests
 # from oauthlib.oauth2 import WebApplicationClient
 import URI
 
 login_route = Blueprint('login',__name__)
+
+@login_route.route('/')
+def login_form():
+    return render_template('login/login.html')
+
+@login_route.route('/auth', methods=['POST'])
+def login_auth():
+    email = request.form['email']
+    password = request.form['password']
+
+    user = Users.select().where(Users.user_email == email)
+    check_password_hash(password, user.user_password)
 
 # GOOGLE_CLIENT_ID = URI.URI_GOOGLE_CLIENT_ID
 # GOOGLE_CLIENT_SECRET = URI.URI_GOOGLE_CLIENT_SECRET

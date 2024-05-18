@@ -6,10 +6,12 @@ from database.database import db
 from database.Models.filmes import Filmes
 from database.Models.users import Users
 
+import URI
 
 def configure_all(app):
     configure_db()
     configure_routes(app)
+    app.config['SECRET_KEY'] = URI.PASS_SECRET_KEY
     # configure_googleOAuth(app)
 
 def configure_db():
