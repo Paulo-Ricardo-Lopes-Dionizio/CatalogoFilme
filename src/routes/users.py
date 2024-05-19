@@ -35,7 +35,7 @@ def insert_users():
     password = generate_password_hash(request.form['password'])
     new_user = Users.create(user_name=name, user_email=email, user_password=password)
 
-    return redirect(url_for('user.list_users'))
+    return redirect(url_for('login.login_form'))
 
 
 @user_route.route('/new')
