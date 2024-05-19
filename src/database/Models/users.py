@@ -1,7 +1,8 @@
 from peewee import Model, CharField, BooleanField
+from flask_login import UserMixin
 from database.database import db
 
-class Users(Model):
+class Users(Model, UserMixin):
 
     user_name = CharField()
     user_email = CharField()

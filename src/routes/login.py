@@ -32,4 +32,4 @@ def login_auth():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('login/login.html'))
+    return redirect(url_for('login.login_form'))
