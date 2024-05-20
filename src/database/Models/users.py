@@ -7,7 +7,6 @@ class Users(Model, UserMixin):
     user_name = CharField()
     user_email = CharField()
     user_password = CharField()
-    is_active = BooleanField(default=True)
     
     @classmethod
     def get_by_email(cls, email):
