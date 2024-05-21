@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 from database.Models.filmes import Filmes
-from flask_jwt_extended import jwt_required
 
 filme_route = Blueprint('filmes', __name__)
 
@@ -23,7 +22,6 @@ filme_route = Blueprint('filmes', __name__)
 #rota principal de filmes
 @filme_route.route('/')
 @login_required
-@jwt_required()
 def index():
 
     return render_template('index_filmes.html')
@@ -32,7 +30,6 @@ def index():
 #rota para listar os filmes
 @filme_route.route('/listar', methods=['GET','POST','PUT','DELETE'])
 @login_required
-@jwt_required()
 def listar_filmes():
 
     filmes = Filmes.select()
@@ -43,7 +40,6 @@ def listar_filmes():
 #rota para inserir um novo filme no banco de dados    
 @filme_route.route('/inserir', methods=['POST'])
 @login_required
-@jwt_required()
 def inserir_filmes():
     data = request.json
     Filmes.create(
@@ -59,7 +55,6 @@ def inserir_filmes():
 #rota para apresentar o formulário de criação de um novo filme 
 @filme_route.route("/new")
 @login_required
-@jwt_required()
 def form_create_filme():
     return render_template('form_filme.html')
 
@@ -67,7 +62,6 @@ def form_create_filme():
 #rota para apresentar os dados do filme escolhido
 @filme_route.route("/<int:filme_id>")
 @login_required
-@jwt_required()
 def dados_filme():
     return render_template("dados_filme.html")
 
@@ -75,7 +69,6 @@ def dados_filme():
 #rota para apresentar o formulário de edição do filme escolhido
 @filme_route.route("/<int:filme_id>/edit")
 @login_required
-@jwt_required()
 def form_editar_filme(filme_id):
 
     filme = Filmes.get_by_id(filme_id)
@@ -86,7 +79,6 @@ def form_editar_filme(filme_id):
 #rota para enviar e atualizar os dados no banco de dados
 @filme_route.route("/<int:filme_id>/update", methods=['PUT'])
 @login_required
-@jwt_required()
 def update_filme(filme_id):
 
     data = request.json
@@ -105,7 +97,6 @@ def update_filme(filme_id):
 #rota para deletar o filme escolhido
 @filme_route.route("/<int:filme_id>/delete", methods=['DELETE'])
 @login_required
-@jwt_required()
 def delete_filme(filme_id):
     filme = Filmes.get_by_id(filme_id)
     filme.delete_instance()

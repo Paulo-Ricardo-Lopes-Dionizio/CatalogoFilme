@@ -14,9 +14,6 @@ def configure_all(app):
     configure_routes(app)
     app.config['SECRET_KEY'] = URI.PASS_SECRET_KEY
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
-    app.config['JWT_TOKEN_LOCATION'] = ['headers', 'query_string']
-    app.config['JWT_BLACKLIST_ENABLED'] = True
-    app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
     # configure_googleOAuth(app)
 
 def configure_db():

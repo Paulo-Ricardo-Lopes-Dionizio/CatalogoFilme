@@ -38,9 +38,9 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.access_token) {
+                if (data.token) {
                     // Salva o token no localStorage
-                    localStorage.setItem('access_token', data.access_token);
+                    localStorage.setItem('token', data.token);
                     // Redireciona ou faz outras ações necessárias
                     window.location.href = "{{ url_for('filmes.index') }}";
                 } else {

@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 from database.Models.users import Users
 from werkzeug.security import generate_password_hash
-from flask_jwt_extended import jwt_required
+
 
 user_route = Blueprint('user', __name__)
 
@@ -22,7 +22,6 @@ user_route = Blueprint('user', __name__)
 
 @user_route.route('/')
 @login_required
-@jwt_required()
 def list_users():
     users = Users.select()
 
@@ -48,7 +47,6 @@ def form_new_users():
 
 @user_route.route('/<int:user_id>')
 @login_required
-@jwt_required()
 def show_user(user_id):
 
     user = Users.get_by_id(user_id)
@@ -58,7 +56,6 @@ def show_user(user_id):
 
 @user_route.route('/<int:user_id>/edit')
 @login_required
-@jwt_required()
 def form_edit_user(user_id):
 
     user = Users.get_by_id(user_id)
@@ -68,7 +65,6 @@ def form_edit_user(user_id):
 
 @user_route.route('/<int:user_id>/update', methods=['PUT'])
 @login_required
-@jwt_required()
 def update_user(user_id):
 
     user = Users.get_by_id(user_id)
@@ -82,7 +78,6 @@ def update_user(user_id):
 
 @user_route.route('/<int:user_id>/delete', methods=['POST','DELETE'])
 @login_required
-@jwt_required()
 def delete_user(user_id):
 
     user = Users.get_by_id(user_id)
