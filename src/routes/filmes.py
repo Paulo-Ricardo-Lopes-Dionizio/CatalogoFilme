@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 from database.Models.filmes import Filmes
+from auth_jwt import token_verify
 
 filme_route = Blueprint('filmes', __name__)
 

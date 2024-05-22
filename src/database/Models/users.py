@@ -5,7 +5,11 @@ from database.database import db
 class Users(Model, UserMixin):
 
     user_name = CharField()
+<<<<<<< Updated upstream
     user_email = CharField()
+=======
+    user_email = CharField(unique=True)
+>>>>>>> Stashed changes
     user_password = CharField()
     admin = BooleanField(default=False)
 

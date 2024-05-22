@@ -1,6 +1,7 @@
 <!-- users/new.html -->
 
 <!DOCTYPE html>
+<<<<<<< Updated upstream
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,16 +11,36 @@
     <h1>Create a new user</h1>
     <form action="{{ url_for('user.insert_users') }}" method="post">
         <label for="name">Name:</label>
+=======
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Usuario</title>
+</head>
+<body>
+    <h1>Criar novo Usuario</h1>
+    <form action="{{ url_for('user.insert_users') }}" method="post">
+        <label for="name">Nome:</label>
+>>>>>>> Stashed changes
         <input type="text" id="name" name="name" required><br>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br>
 
+<<<<<<< Updated upstream
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br>
 
         <button type="submit">Create user</button>
     </form>
     <p><a href="{{ url_for('login.login_form') }}">Back to Login</a></p>
+=======
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="submit">Criar usuario!</button>
+    </form>
+    <p><a href="{{ url_for('login.login_form') }}">Voltar no Login</a></p>
+>>>>>>> Stashed changes
 </body>
 </html>

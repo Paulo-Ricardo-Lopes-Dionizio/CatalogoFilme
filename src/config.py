@@ -6,13 +6,20 @@ from database.database import db
 from database.Models.filmes import Filmes
 from database.Models.users import Users
 from datetime import timedelta
+<<<<<<< Updated upstream
 
 import URI
+=======
+>>>>>>> Stashed changes
 
 def configure_all(app):
     configure_db()
     configure_routes(app)
+<<<<<<< Updated upstream
     app.config['SECRET_KEY'] = URI.PASS_SECRET_KEY
+=======
+    app.config['SECRET_KEY'] = 'secret'
+>>>>>>> Stashed changes
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
     # configure_googleOAuth(app)
 
