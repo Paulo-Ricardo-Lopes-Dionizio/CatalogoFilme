@@ -1,7 +1,0 @@
-.vscode
-*.db
-*.pyc
-URI.py
-__pycache__
-/.idx
-/.idxvnv
