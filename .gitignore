@@ -1,4 +1,7 @@
 .vscode
 *.db
-/__pycache__
 *.pyc
+URI.py
+__pycache__
+/.idx
+/.idxvnv
