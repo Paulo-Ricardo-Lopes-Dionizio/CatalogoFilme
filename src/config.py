@@ -7,12 +7,10 @@ from database.Models.filmes import Filmes
 from database.Models.users import Users
 from datetime import timedelta
 
-import URI
-
 def configure_all(app):
     configure_db()
     configure_routes(app)
-    app.config['SECRET_KEY'] = URI.PASS_SECRET_KEY
+    app.config['SECRET_KEY'] = 'secret'
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
     # configure_googleOAuth(app)
 
