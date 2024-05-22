@@ -1,24 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< Updated upstream
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <h1>Login</h1>
-    <form id="login-form">
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        <input type="submit" value="Login">
-
-        <p>Don't have an account? <a href="{{ url_for('user.form_new_users') }}">Create one</a></p>
-    </form>
-=======
 <html lang="pt-br">
 <head>
     <title>Login</title>
@@ -39,7 +19,6 @@
 
             <p>Não tem conta? <a href="{{ url_for('user.form_new_users') }}">Crie uma!</a></p>
         </form>
->>>>>>> Stashed changes
 
     <script>
         document.getElementById('login-form').addEventListener('submit', function(event) {

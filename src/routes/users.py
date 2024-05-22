@@ -2,10 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 from database.Models.users import Users
 from werkzeug.security import generate_password_hash
-<<<<<<< Updated upstream
-=======
 from auth_jwt import token_verify
->>>>>>> Stashed changes
 
 
 user_route = Blueprint('user', __name__)
@@ -25,10 +22,7 @@ user_route = Blueprint('user', __name__)
 """
 
 @user_route.route('/')
-<<<<<<< Updated upstream
-=======
 @token_verify
->>>>>>> Stashed changes
 @login_required
 def list_users():
     users = Users.select()

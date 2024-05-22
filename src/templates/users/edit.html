@@ -1,26 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< Updated upstream
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit User</title>
-</head>
-<body>
-    <h1>Edit User</h1>
-    <form action="{{ url_for('user.update_user', user_id=user.id) }}" method="PUT">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ user.name }}" required><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ user.email }}" required><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" value="{{ user.password }}" required><br>
-
-        <button type="submit">Update user</button>
-    </form>
-    <p><a href="{{ url_for('user.show_user', user_id=user.id) }}">Back to user details</a></p>
-=======
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -45,6 +23,5 @@
         </form>
     </div>
     
->>>>>>> Stashed changes
 </body>
 </html>
