@@ -1,0 +1,37 @@
+
+  <h1 style="text-align: center; color: white;text-shadow:0px 1px 10px white;">Lista de Filmes</h1>
+  
+  <ul class="lista-filmes" >
+    {% for filme in filmes %}
+    <div>
+    <li>
+      <!--<div class="Poster">{{filme.filme_poster}}</div>-->
+      <img class="Poster" src="../static/Image/exemplo1.jpg" alt="Filme's"> 
+    </li>
+     
+    <li class="conteudo">
+      <h2>{{ filme.filme_nome }}</h2>
+      
+      <div class="simbolos">
+        {{filme.filme_genero}}
+      </div>
+      <hr>
+      <p>{{filme.filme_data}}</p>{{filme.filme_sinopse }}</p><p>{{filme.filme_duracao}}</p>
+      <button class="btn btn-success"
+            c-get="{{ url_for('filmes.form_editar_filme', filme_id = filme.id) }}"
+            c-target="#index-filmes" >Editar</button>
+
+    <button class="btn btn-danger"
+            c-delete="{{ url_for('filmes.delete_filme', filme_id = filme.id) }}"
+            c-remove-closest="li">Deletar</button>
+    </li>
+  </div>
+    {% endfor %}
+    
+    </ul>
+    
+
+  
+
+  
+ 
