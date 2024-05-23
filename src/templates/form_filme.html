@@ -1,0 +1,73 @@
+<h1>Adicionar Filme</h1>
+  <form class="c-form" 
+        c-target="#index-filmes"
+        
+        {% if filme %}
+
+        action="{{ url_for('filmes.update_filme', filme_id=filme.id) }}"
+        method="PUT"
+
+        {% else %}
+
+        action="{{ url_for('filmes.inserir_filmes') }}"
+        method="POST"
+
+        {% endif %}
+        >
+
+
+    <div class="mb-3" >
+      <label class="form-label">Nome do filme</label>
+      <input type="text" class="form-control" name="nome" {% if filme %} value="{{filme.filme_nome}}" {% endif %} required>
+    </div>
+
+
+    <div class="mb-3">
+      <label class="form-label">Data de lançamento</label>
+      <input type="date" class="form-control" name="data" {% if filme %} value="{{filme.filme_data}}" {% endif %} required>
+    </div>
+
+
+    <div class="mb-3">
+      <label class="form-label">Genero do filme</label>
+      <select name="genero" required>
+        <option value="">Selecione o Gênero</option>
+        <option value="acao">Ação</option>
+        <option value="animacao">Animação</option>
+        <option value="aventura">Aventura</option>
+        <option value="comedia">Comédia</option>
+        <option value="documentario">Documentário</option>
+        <option value="drama">Drama</option>
+        <option value="ficcao-cientifica">Ficção Científica</option>
+        <option value="horror">Horror</option>
+        <option value="musical">Musical</option>
+        <option value="romance">Romance</option>
+        <option value="suspense">Suspense</option>
+        <option value="guerra">Guerra</option>
+        </select>
+    </div>
+
+
+    <div class="mb-3">
+      <label class="form-label">Duração(minutos):</label>
+      <input type="number" class="form-control" name="duracao" {% if filme %} value="{{filme.filme_duracao}}" {% endif %} required>
+    </div>
+
+
+    <div class="mb-3">
+      <label class="form-label">Sinopse:</label>
+      <input type="text" class="form-control" name="sinopse" {% if filme %} value="{{filme.filme_sinopse}}" {% endif %} required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Poster</label>
+      <input type="file" class="form-control" name="poster">
+      {% if filme and filme.filme_poster %}
+        <img src="{{ filme.filme_poster }}" alt="Poster do Filme" style="max-width: 200px;">
+      {% endif %}
+    </div>
+
+    <button  type="submit" class="btn btn-primary"> {% if filme %} Salvar {% else %} Cadastrar {% endif %}</button>
+
+  </form>
+</div>
